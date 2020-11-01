@@ -1,4 +1,3 @@
-const express = require("express");
 const router = require("express").Router();
 const Game = require("../models/games.js");
 
@@ -12,8 +11,8 @@ router.get("/", async (req, res) => {
 });
 
 //NEW ROUTE
-router.get("/new", async (req, res) => {
-	res.render("games/new.ejs");
+router.get("/new", (req, res) => {
+	res.render("games/new.ejs");	
 });
 
 //SHOW ROUTE
@@ -22,6 +21,7 @@ router.get("/:id", async (req, res) => {
 		//res.render("show.ejs", {game})
 		res.send(game);
 	});
+});
 
 	//POST ROUTE
 	router.post("/", async (req, res) => {
@@ -41,10 +41,10 @@ router.get("/:id", async (req, res) => {
 		} else {
 			req.body.hasBeaten = false;
 		}
-		Game.create(req.body, (error, createdGame) => {
-            
+		let game = await Game.create(req.body);//, (error, createdGame) => {
+           // console.log(error, createdGame);
 			res.redirect("/games");
-		});
+		//});
 	});
 
 	//DELETE
@@ -75,10 +75,6 @@ router.get("/:id", async (req, res) => {
 			req.body.hasBeaten = false;
 		}
 	await	Game.findByIdAndUpdate(req.params.id, req.body, (error, updatedGame) => {
-            console.log("Update", "isDigital=",req.body.isDigital, "currentlyPlaying=",req.body.currentlyPlaying, "hasBeaten=",req.body.hasBeaten);
-			
-            
-            //console.log("Update after", "isDigital=",req.body.isDigital, "currentlyPlaying=",req.body.currentlyPlaying, "hasBeaten=",req.body.hasBeaten);
             console.log(req.body, error, updatedGame);
 			res.redirect('/games');
 		});
@@ -93,6 +89,6 @@ router.get("/:id", async (req, res) => {
 			});
 		});
 	});
-});
+
 
 module.exports = router;
