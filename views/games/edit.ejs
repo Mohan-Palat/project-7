@@ -1,0 +1,17 @@
+<body><h1>Edit Game</h1>
+    <form action="/games/<%= game._id%>?_method=PUT" method="POST"> <!--Method is the http verb that we are sending-->
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%= game.name %>" /><br/>
+        <label for="isDigital">Digital?</label>
+    <input type="checkbox" name="isDigital" id="isDigital" <% if(game.isDigital){ %> checked <%}%> /><br/>
+        <label for="acquired">When Acquired</label>
+        <input type="text" name="acquired" id="acquired" value="<%= game.acquired %>" /><br/>
+        <label for="currentlyPlaying">Currently Playing</label>
+        <input type="checkbox" name="currentlyPlaying" id="currentlyPlaying" <% if(game.currentlyPlaying){ %> checked <%}%> /><br/>
+        <label for="hasBeaten">Has Beaten?</label>
+        <input type="checkbox" name="hasBeaten" id="hasBeaten" <% if(game.hasBeaten){ %> checked <%}%>/><br/>
+        
+        <input type="submit" value="Update Game Stats">
+      </form>
+
+     </body>
