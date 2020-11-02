@@ -44,8 +44,8 @@ router.post("/", async (req, res) => {
 		req.body.hasBeaten = false;
 	}
 	let game = await Game.create(req.body); //, (error, createdGame) => {
-	console.log(req.body.id);
-	res.redirect(`/games/${req.body.id}`);
+	console.log(game._id);
+	res.redirect(`/games/${game._id}`);
 	//});
 });
 
