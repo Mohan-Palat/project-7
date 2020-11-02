@@ -17,9 +17,11 @@ router.get("/new", (req, res) => {
 
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
-	Game.findById(req.params.id, (err, game) => {
+	Game.findById(req.params.id, (err, allGames) => {
 		//res.render("show.ejs", {game})
-		res.send(game);
+		res.render("games/show.ejs", {
+			game: allGames,
+		});
 	});
 });
 
@@ -42,8 +44,8 @@ router.post("/", async (req, res) => {
 		req.body.hasBeaten = false;
 	}
 	let game = await Game.create(req.body); //, (error, createdGame) => {
-	console.log(req.body.name);
-	res.redirect("/games");
+	console.log(req.body.id);
+	res.redirect(`/games/${req.body.id}`);
 	//});
 });
 
@@ -57,6 +59,7 @@ router.delete("/:id", async (req, res) => {
 
 //UPDATE
 router.put("/:id", async (req, res) => {
+	let id = req.params.id;
 	if (req.body.isDigital === "on") {
 		req.body.isDigital = true;
 	} else {
@@ -78,8 +81,7 @@ router.put("/:id", async (req, res) => {
 		req.params.id,
 		req.body,
 		(error, updatedGame) => {
-			console.log(req.body, error, updatedGame);
-			res.redirect("/games");
+			res.redirect(`/games/${req.params.id}`);
 		}
 	);
 });
