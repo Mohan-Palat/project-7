@@ -1,1 +1,9 @@
 <h1>The games page!</h1>
+<ul>
+<% for (let game of games) { %>
+<li>
+    <a href="/games/<%=game._id%>">
+    <%=game.name%></a>
+</li>
+<%}%>
+</ul>
