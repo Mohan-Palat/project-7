@@ -62,12 +62,11 @@ app.post("/", (req,res) => {
 	if(req.body.password == process.env.PASSWORD){
 		isAuthenticated=true;
 		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
-		
 	}
 	else{
 	isAuthenticated=false;
+	return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
-	console.log(isAuthenticated);
 res.redirect("/");
 });
 //___________________

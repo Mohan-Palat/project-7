@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Game = require("../models/games.js");
 
-
 //INDEX ROUTE
 router.get("/", async (req, res) => {
 	Game.find({}, (error, allGames) => {
@@ -43,8 +42,20 @@ router.post("/", async (req, res) => {
 	} else {
 		req.body.hasBeaten = false;
 	}
-	let game = await Game.create(req.body); //Creates a new entry in Games document with the game detail
-	res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
+	let gameCollection = await Game.find({
+		name: req.body.name,
+		isDigital: req.body.isDigital,
+	});
+	
+	if (gameCollection!="") {
+		let dupe=true;
+		res.redirect('/games/new');
+	}
+	else{
+		let game = await Game.create(req.body); //Creates a new entry in Games document with the game detail
+		res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
+	}
+	// res.redirect('/games/new');
 });
 
 //DELETE
