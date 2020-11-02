@@ -43,10 +43,9 @@ router.post("/", async (req, res) => {
 	} else {
 		req.body.hasBeaten = false;
 	}
-	let game = await Game.create(req.body); //, (error, createdGame) => {
-	console.log(game._id);
-	res.redirect(`/games/${game._id}`);
-	//});
+	let game = await Game.create(req.body);
+	res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
+	
 });
 
 //DELETE

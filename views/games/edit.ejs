@@ -10,6 +10,8 @@
         <input type="checkbox" name="currentlyPlaying" id="currentlyPlaying" <% if(game.currentlyPlaying){ %> checked <%}%> /><br/>
         <label for="hasBeaten">Has Beaten?</label>
         <input type="checkbox" name="hasBeaten" id="hasBeaten" <% if(game.hasBeaten){ %> checked <%}%>/><br/>
+        <label for="image">Image</label>
+        <input type="text" name="image" id="image" value="<%=game.image%>" /><br/>
         
         <input type="submit" value="Update Game Stats">
       </form>
