@@ -8,6 +8,12 @@ const gameSchema = new mongoose.Schema(
         currentlyPlaying: {type: Boolean},
         hasBeaten: {type: Boolean},
         image:{type: String},
+        console: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Console",
+			},
+		],
     }
 )
 

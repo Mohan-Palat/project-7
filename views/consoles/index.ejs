@@ -1,1 +1,10 @@
-<h1>The consoles page!</h1>
+<h1>The console page!</h1>
+<ul>
+<% for (let console of consoles) { %>
+<li>
+    <a href="/consoles/<%=console._id%>">
+    <%=console.name%></a>
+</li>
+<%}%>
+</ul>
+<a href="consoles/new">Create a New Console</a>

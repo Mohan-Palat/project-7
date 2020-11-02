@@ -4,7 +4,7 @@ const consoleSchema = new mongoose.Schema(
 	{
 		name: { type: String, required: true },
 		acquired: { type: String },
-		img: { type: String },
+		image: { type: String },
 		games: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

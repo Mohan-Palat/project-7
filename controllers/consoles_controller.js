@@ -7,7 +7,7 @@ const Game = require("../models/games.js");
 router.get("/", (req, res) => {
 	Console.find({}, (error, allConsoles) => {
 		res.render("consoles/index.ejs", {
-			console: allConsoles,
+			consoles: allConsoles,
 		});
 	});
 });
