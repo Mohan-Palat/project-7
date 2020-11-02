@@ -74,7 +74,10 @@ app.get("/login", (req,res) =>{
 	goBack = req.headers['referer'];
 	res.render("login.ejs");
 });
-
+app.get("/logout", (req, res) =>{
+	isAuthenticated=false;
+	return res.redirect(`${goBack}`);
+})
 
 //___________________
 //Listener

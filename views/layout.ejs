@@ -10,7 +10,12 @@
     
     <br><a href="/games">Back to Games Index</a>
     <br><a href="/consoles/">Back to Consoles Index</a>
-    <br><a href="/login">Login</a>
+    <br>
+    <%if(!isAuthenticated){%>
+        <a href="/login">Login</a>
+        <%} else {%>
+            <a href="/logout">Logout</a>
+        <%} %>
     
     
 </body>
