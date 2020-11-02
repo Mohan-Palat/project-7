@@ -2,6 +2,10 @@
 
 <h2><%=game.name%></h2>
 <img src="<%=game.image%>" width="720" height="480"><br>
+
+<%if(game.youTubeLink!=''){%>
+  <%-game.youTubeLink%>
+<%}%>
 <%if(!isAuthenticated){%>
     
   <%} else {%>
