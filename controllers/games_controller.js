@@ -27,7 +27,6 @@ router.get("/:id", async (req, res) => {
 
 //POST ROUTE
 router.post("/", async (req, res) => {
-	console.log("Post");
 	if (req.body.isDigital == "on") {
 		req.body.isDigital = true;
 	} else {
@@ -49,7 +48,7 @@ router.post("/", async (req, res) => {
 
 //DELETE
 router.delete("/:id", async (req, res) => {
-	const index = req.params.id;
+	// const index = req.params.id;
 	Game.findByIdAndRemove(req.params.id, (error) => {
 		res.redirect("/games");
 	});
@@ -89,7 +88,7 @@ router.get("/:id/edit", async (req, res) => {
 	Game.findById(req.params.id, (error, game) => {
 		console.log("Edit", game);
 		res.render("games/edit.ejs", {
-			game: game,
+			game,
 		});
 	});
 });

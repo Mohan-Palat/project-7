@@ -1,4 +1,3 @@
-const express = require("express");
 const router = require("express").Router();
 const Console = require("../models/consoles.js");
 const Game = require("../models/games.js");
@@ -14,52 +13,47 @@ router.get("/", (req, res) => {
 
 //NEW ROUTE
 router.get("/new", (req, res) => {
-	let games = Game.find();
-	res.render("consoles/new.ejs", {
-		games,
-	});
+	res.render("consoles/new.ejs");
 });
 
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
 	Console.findById(req.params.id, (err, allConsoles) => {
-		//res.render("show.ejs", {game})
 		res.render("consoles/show.ejs", {
 			console: allConsoles,
 		});
 	});
 });
 
-	//POST ROUTE
-	router.post("/", (req, res) => {
-		Console.create(req.body, (error, createdConsole) => {
-			res.redirect("/consoles");
+//POST ROUTE
+router.post("/", async (req, res) => {
+	let console = await Console.create(req.body);
+	res.redirect(`/consoles/${console._id}`);
+});
+
+//DELETE
+router.delete("/:id", async (req, res) => {
+	// const index = req.params.id;
+	Console.findByIdAndRemove(req.params.id, (error) => {
+		res.redirect("/consoles");
+	});
+});
+
+//UPDATE
+router.put("/:id", async (req, res) => {
+	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
+		res.redirect(`/consoles/${req.params.id}`);
+	});
+});
+
+//EDIT
+router.get("/:id/edit", async (req, res) => {
+	Console.findById(req.params.id, (error, console) => {
+		//console.log("Edit", console);
+		res.render("consoles/edit.ejs", {
+			console,
 		});
 	});
-
-	//DELETE
-	router.delete("/:id", (req, res) => {
-		const index = req.params.id;
-		Console.findByIdAndRemove(req.params.id, (error) => {
-			res.redirect("/consoles");
-		});
-	});
-
-	//UPDATE
-	router.put("/:id", (req, res) => {
-		Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
-			res.redirect("/consoles");
-		});
-	});
-
-	//EDIT
-	router.get("/:id/edit", (req, res) => {
-		Console.findById(req.params.id, (error, console) => {
-			res.render("edit.ejs", {
-				console: console,
-			});
-		});
-	});
-
+});
 
 module.exports = router;
