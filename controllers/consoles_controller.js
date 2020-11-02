@@ -21,14 +21,14 @@ router.get("/new", (req, res) => {
 });
 
 //SHOW ROUTE
-router.get("/:id", (req, res) => {
-	Console.findById(req.params.id, (err, console) => {
-		// res.render("show.ejs", {console})
-		Console.findById(req.params.id, (err, console) => {
-			//res.render("show.ejs", {game})
-			res.send(console);
+router.get("/:id", async (req, res) => {
+	Console.findById(req.params.id, (err, allConsoles) => {
+		//res.render("show.ejs", {game})
+		res.render("consoles/show.ejs", {
+			console: allConsoles,
 		});
 	});
+});
 
 	//POST ROUTE
 	router.post("/", (req, res) => {
@@ -60,6 +60,6 @@ router.get("/:id", (req, res) => {
 			});
 		});
 	});
-});
+
 
 module.exports = router;
