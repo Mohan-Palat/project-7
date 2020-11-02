@@ -1,12 +1,16 @@
 //___________________
 //Dependencies
 //___________________
+require("dotenv").config(); //Should always be at the very top of the file so that it can load the environment variables first.
 const express = require("express");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const app = express();
 const db = mongoose.connection;
 const expressLayouts = require("express-ejs-layouts");
+const router = require("./controllers/consoles_controller.js");
+isAuthenticated = false;
+goBack ="";
 //___________________
 //Port
 //___________________
@@ -49,12 +53,29 @@ app.use("/consoles", require("./controllers/consoles_controller.js"));
 app.use("/games", require("./controllers/games_controller.js"));
 //___________________
 // Routes
-
+app.post("/", (req,res) => {
+	if(req.body.password == process.env.PASSWORD){
+		isAuthenticated=true;
+		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
+		
+	}
+	else{
+	isAuthenticated=false;
+	}
+	console.log(isAuthenticated);
+res.redirect("/");
+});
 //___________________
 //localhost:3000
 app.get("/", (req, res) => {
 	res.render("index.ejs");
 });
+app.get("/login", (req,res) =>{
+	goBack = req.headers['referer'];
+	res.render("login.ejs");
+});
+
+
 //___________________
 //Listener
 //___________________

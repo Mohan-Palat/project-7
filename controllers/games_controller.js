@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Game = require("../models/games.js");
+// const isAuthenticated=process.env.PASSWORD;
 
 //INDEX ROUTE
 router.get("/", async (req, res) => {

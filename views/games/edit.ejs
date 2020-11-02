@@ -11,7 +11,9 @@
         <label for="hasBeaten">Has Beaten?</label>
         <input type="checkbox" name="hasBeaten" id="hasBeaten" <% if(game.hasBeaten){ %> checked <%}%>/><br/>
         <label for="image">Image</label>
-        <input type="text" name="image" id="image" value="<%=game.image%>" /><br/>
+        <input type="text" name="image" id="image" value="<%=game.image%>" /> 
+        <!-- <button onclick="document.querySelector('#image').value=''; preventDefault()">Clear image field</button> -->
+        <br/>
         
         <input type="submit" value="Update Game Stats">
       </form>
