@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Game = require("../models/games.js");
-// const isAuthenticated=process.env.PASSWORD;
+
 
 //INDEX ROUTE
 router.get("/", async (req, res) => {
@@ -43,8 +43,7 @@ router.post("/", async (req, res) => {
 	} else {
 		req.body.hasBeaten = false;
 	}
-	
-	let game = await Game.create(req.body);
+	let game = await Game.create(req.body); //Creates a new entry in Games document with the game detail
 	res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
 });
 

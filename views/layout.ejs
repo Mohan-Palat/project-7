@@ -8,13 +8,14 @@
 <body>
     <%- body%>
     
-    <br><a href="/games">Back to Games Index</a>
-    <br><a href="/consoles/">Back to Consoles Index</a>
+    <br><a href="/games">Games</a>
+    <br><a href="/consoles/">Consoles</a>
+    <br><a href="/">Search</a>
     <br>
     <%if(!isAuthenticated){%>
-        <a href="/login">Login</a>
+        <a href="/login">Login to make changes</a>
         <%} else {%>
-            <a href="/logout">Logout</a>
+            <a href="/logout">Logout to be done making changes</a>
         <%} %>
     
     

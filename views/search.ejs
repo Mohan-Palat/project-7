@@ -1,0 +1,18 @@
+<h1>Consoles</h1>
+<ul>
+    <% for (let console of consoles) { %>
+    <li>
+        <a href="/consoles/<%=console._id%>">
+        <%=console.name%></a>
+    </li>
+</ul>
+<%}%>
+<h1>Games</h1>
+<ul>
+    <% for (let game of games) { %>
+    <li>
+        <a href="/games/<%=game._id%>">
+        <%=game.name%></a>
+    </li>
+</ul>
+<%}%>

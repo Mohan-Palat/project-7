@@ -11,6 +11,7 @@ const expressLayouts = require("express-ejs-layouts");
 const router = require("./controllers/consoles_controller.js");
 isAuthenticated = false;
 goBack ="";
+
 //___________________
 //Port
 //___________________
@@ -49,8 +50,12 @@ app.use(express.json()); // returns middleware that only parses JSON - may or ma
 //use method override
 app.use(methodOverride("_method")); // allow POST, PUT and DELETE from a form
 
+const Console = require("./models/consoles.js");
+const Game = require("./models/games.js");
+
 app.use("/consoles", require("./controllers/consoles_controller.js"));
 app.use("/games", require("./controllers/games_controller.js"));
+
 //___________________
 // Routes
 app.post("/", (req,res) => {
@@ -75,9 +80,26 @@ app.get("/login", (req,res) =>{
 	res.render("login.ejs");
 });
 app.get("/logout", (req, res) =>{
+	goBack = req.headers['referer'];
 	isAuthenticated=false;
 	return res.redirect(`${goBack}`);
 })
+app.get("/search", async (req,res) =>{
+	let queryString=req.query.name;
+	console.log(queryString);
+	let gameResults = await Game.find(
+		{name: {$regex: req.query.name, $options: 'i'}})
+		
+	let consoleResults = await Console.find(
+		{name: {$regex: req.query.name, $options: 'i'}})	
+	console.log(gameResults);
+		res.render("search.ejs", {
+			games: gameResults,
+			consoles: consoleResults,
+		});
+	});
+
+	
 
 //___________________
 //Listener
