@@ -47,8 +47,14 @@ router.delete("/:id", async (req, res) => {
 
 //UPDATE
 router.put("/:id", async (req, res) => {
+	console.log(req.body.games);
+	 if(!req.body.games){
+		 let result = Console.findByIdAndUpdate(req.params.id, 
+			{games: [] }, (error) =>{});
+		 console.log(result.games);
+	 }
 	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
-		console.log("req.body", req.body);
+		//console.log("req.body", req.body);
 		res.redirect(`/consoles/${req.params.id}`);
 	});
 });
