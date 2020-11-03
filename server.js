@@ -9,9 +9,9 @@ const app = express();
 const db = mongoose.connection;
 const expressLayouts = require("express-ejs-layouts");
 const router = require("./controllers/consoles_controller.js");
-const session=require('express-session');
+const session = require("express-session");
 isAuthenticated = false;
-goBack ="";
+goBack = "";
 
 //___________________
 //Port
@@ -50,14 +50,14 @@ app.use(express.urlencoded({ extended: true })); // extended: false - does not a
 app.use(express.json()); // returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride("_method")); // allow POST, PUT and DELETE from a form
-app.use( //Required for using sessions
+app.use(
+	//Required for using sessions
 	session({
 		secret: process.env.SECRET,
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
 	})
-)
-
+);
 
 const Console = require("./models/consoles.js");
 const Game = require("./models/games.js");
@@ -67,63 +67,60 @@ app.use("/games", require("./controllers/games_controller.js"));
 
 //___________________
 // Routes
-app.post("/", (req,res) => { //Used to determine if password is correct.  If so, authenticate and enable admin functions
-	if(req.body.password == process.env.PASSWORD){
-		req.session.isAuthenticated=true;
-		console.log(req.session.isAuthenticated);
+app.post("/", (req, res) => {
+	//Used to determine if password is correct.  If so, authenticate and enable admin functions
+	if (req.body.password == process.env.PASSWORD) {
+		req.session.isAuthenticated = true;
+
+		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
+	} else {
+		req.session.isAuthenticated = false;
+		req.session.stillOpen = false;
 		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
-	else{
-		req.session.isAuthenticated=false;
-		req.session.stillOpen=false;
-	return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
-	}
-res.redirect("/");
+	res.redirect("/");
 });
 //___________________
 //localhost:3000
 
- clearButton = () =>{
-		const button = document.querySelector('#clear');
-		button.addEventListener('click', (event) =>{
-			event.preventDefault();
-			document.querySelector('#image').value="";
-		});
-	
+clearButton = () => {
+	const button = document.querySelector("#clear");
+	button.addEventListener("click", (event) => {
+		event.preventDefault();
+		document.querySelector("#image").value = "";
+	});
 };
-
 
 app.get("/", (req, res) => {
 	res.render("index.ejs", {
 		isAuthenticated: req.session.isAuthenticated,
-		
 	});
 });
-app.get("/login", (req,res) =>{
-	goBack = req.headers['referer'];
+app.get("/login", (req, res) => {
+	goBack = req.headers["referer"];
 	res.render("login.ejs");
 });
-app.get("/logout", (req, res) =>{
-	goBack = req.headers['referer'];
-	req.session.isAuthenticated=false;
+app.get("/logout", (req, res) => {
+	goBack = req.headers["referer"];
+	req.session.isAuthenticated = false;
 	return res.redirect(`${goBack}`);
-})
-app.get("/search", async (req,res) =>{
-	let queryString=req.query.name;
+});
+app.get("/search", async (req, res) => {
+	let queryString = req.query.name;
 	console.log(queryString);
-	let gameResults = await Game.find(
-		{name: {$regex: req.query.name, $options: 'i'}})
-		
-	let consoleResults = await Console.find(
-		{name: {$regex: req.query.name, $options: 'i'}})	
-	console.log(gameResults);
-		res.render("search.ejs", {
-			games: gameResults,
-			consoles: consoleResults,
-		});
+	let gameResults = await Game.find({
+		name: { $regex: req.query.name, $options: "i" },
 	});
 
-	
+	let consoleResults = await Console.find({
+		name: { $regex: req.query.name, $options: "i" },
+	});
+	console.log(gameResults);
+	res.render("search.ejs", {
+		games: gameResults,
+		consoles: consoleResults,
+	});
+});
 
 //___________________
 //Listener

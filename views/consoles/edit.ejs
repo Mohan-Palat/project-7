@@ -4,14 +4,17 @@
       <%} else {%>
     <form action="/consoles/<%= console._id%>?_method=PUT" method="POST"> <!--Method is the http verb that we are sending-->
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<%= console.name %>" /><br/>
+        <input type="text" name="name" id="name" value="<%= console.name %>" size="75"/><br/>
         
         <label for="image">Image</label>
-        <input type="text" name="image" id="image" value="<%=console.image%>" /><br/>
+        <input type="text" name="image" id="image" value="<%=console.image%>" size="75" /><br/>
         
         <% games.forEach(game => { %>
           <label for="<%= game.name%>">
-          <input type="checkbox" id="<%= game.name %>" name="games" value="<%= game.id %>"/>
+          <input type="checkbox" id="<%=console.games.id %>" name="games" value="<%=console.games.id%>"
+          <% if(game.id === console.games.id){ %>
+          checked
+        <%}%>/>
           <%= game.name %>
           </label><br />
         <%})%>

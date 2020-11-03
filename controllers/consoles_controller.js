@@ -16,21 +16,20 @@ router.get("/", (req, res) => {
 router.get("/new", async (req, res) => {
 	let games = await Game.find();
 	res.render("consoles/new.ejs", {
-		game: games,
+		games: games,
 		isAuthenticated: req.session.isAuthenticated,
 	});
 });
 
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
-	let console = await Console.findById(req.params.id).populate('games');
-	
-	 res.render("consoles/show.ejs", {
-	 		console,
-	 		isAuthenticated: req.session.isAuthenticated,
-	 	});
-	});
+	let console = await Console.findById(req.params.id).populate("games");
 
+	res.render("consoles/show.ejs", {
+		console,
+		isAuthenticated: req.session.isAuthenticated,
+	});
+});
 
 //POST ROUTE
 router.post("/", async (req, res) => {
@@ -49,6 +48,7 @@ router.delete("/:id", async (req, res) => {
 //UPDATE
 router.put("/:id", async (req, res) => {
 	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
+	//	console.log("req.body", req.body);
 		res.redirect(`/consoles/${req.params.id}`);
 	});
 });
@@ -56,14 +56,12 @@ router.put("/:id", async (req, res) => {
 //EDIT
 router.get("/:id/edit", async (req, res) => {
 	let games = await Game.find();
-	console.log(games);
-	Console.findById(req.params.id, (error, console) => {
-		//console.log("Edit", console);
-		res.render("consoles/edit.ejs", {
-			console,
-			games,
-			isAuthenticated: req.session.isAuthenticated,
-		});
+	let consoles = await Console.findById(req.params.id).populate("games");
+	console.log(consoles.games[0]._id);
+	res.render("consoles/edit.ejs", {
+		console: consoles,
+		games,
+		isAuthenticated: req.session.isAuthenticated,
 	});
 });
 

@@ -13,6 +13,14 @@
         <label for="image">Image</label>
         <input type="text" name="image" id="image"  /><br/>
 
+        <% games.forEach(game => { %>
+          <label for="<%= game.name%>">
+          <input type="checkbox" id="<%= game.id %>" name="games" value="<%=game.id%>"
+          />
+          <%= game.name %>
+          </label><br />
+        <%})%>
+
         <input type="submit" value="Add new game">
       </form>
 <%}%>
