@@ -50,7 +50,7 @@ app.use(express.urlencoded({ extended: true })); // extended: false - does not a
 app.use(express.json()); // returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride("_method")); // allow POST, PUT and DELETE from a form
-app.use(
+app.use( //Required for using sessions
 	session({
 		secret: process.env.SECRET,
 		resave: false,
@@ -67,7 +67,7 @@ app.use("/games", require("./controllers/games_controller.js"));
 
 //___________________
 // Routes
-app.post("/", (req,res) => {
+app.post("/", (req,res) => { //Used to determine if password is correct.  If so, authenticate and enable admin functions
 	if(req.body.password == process.env.PASSWORD){
 		req.session.isAuthenticated=true;
 		console.log(req.session.isAuthenticated);
@@ -75,15 +75,28 @@ app.post("/", (req,res) => {
 	}
 	else{
 		req.session.isAuthenticated=false;
+		req.session.stillOpen=false;
 	return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
 res.redirect("/");
 });
 //___________________
 //localhost:3000
+
+ clearButton = () =>{
+		const button = document.querySelector('#clear');
+		button.addEventListener('click', (event) =>{
+			event.preventDefault();
+			document.querySelector('#image').value="";
+		});
+	
+};
+
+
 app.get("/", (req, res) => {
 	res.render("index.ejs", {
 		isAuthenticated: req.session.isAuthenticated,
+		
 	});
 });
 app.get("/login", (req,res) =>{

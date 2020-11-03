@@ -9,6 +9,13 @@
         <label for="image">Image</label>
         <input type="text" name="image" id="image" value="<%=console.image%>" /><br/>
         
+        <% games.forEach(game => { %>
+          <label for="<%= game.name%>">
+          <input type="checkbox" id="<%= game.name %>" name="games" value="<%= game.id %>"/>
+          <%= game.name %>
+          </label><br />
+        <%})%>
+        
         <input type="submit" value="Update Console Info">
       </form>
 <%}%>

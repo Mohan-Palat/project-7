@@ -13,21 +13,24 @@ router.get("/", (req, res) => {
 });
 
 //NEW ROUTE
-router.get("/new", (req, res) => {
+router.get("/new", async (req, res) => {
+	let games = await Game.find();
 	res.render("consoles/new.ejs", {
+		game: games,
 		isAuthenticated: req.session.isAuthenticated,
 	});
 });
 
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
-	Console.findById(req.params.id, (err, allConsoles) => {
-		res.render("consoles/show.ejs", {
-			console: allConsoles,
-			isAuthenticated: req.session.isAuthenticated,
-		});
+	let console = await Console.findById(req.params.id).populate('games');
+	
+	 res.render("consoles/show.ejs", {
+	 		console,
+	 		isAuthenticated: req.session.isAuthenticated,
+	 	});
 	});
-});
+
 
 //POST ROUTE
 router.post("/", async (req, res) => {
@@ -52,10 +55,14 @@ router.put("/:id", async (req, res) => {
 
 //EDIT
 router.get("/:id/edit", async (req, res) => {
+	let games = await Game.find();
+	console.log(games);
 	Console.findById(req.params.id, (error, console) => {
 		//console.log("Edit", console);
 		res.render("consoles/edit.ejs", {
 			console,
+			games,
+			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
 });

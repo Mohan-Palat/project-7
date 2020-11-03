@@ -105,6 +105,8 @@ router.get("/:id/edit", async (req, res) => {
 		console.log("Edit", game);
 		res.render("games/edit.ejs", {
 			game,
+			isAuthenticated: req.session.isAuthenticated,
+			clearButton: clearButton,
 		});
 	});
 });

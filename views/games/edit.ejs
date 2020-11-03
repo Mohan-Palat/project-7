@@ -15,7 +15,7 @@
         <input type="checkbox" name="hasBeaten" id="hasBeaten" <% if(game.hasBeaten){ %> checked <%}%>/><br/>
         <label for="image">Image</label>
         <input type="text" name="image" id="image" value="<%=game.image%>" /> 
-        <!-- <button onclick="document.querySelector('#image').value=''; preventDefault()">Clear image field</button> -->
+        <button id="clear">Clear</button><%clearButton%>
         <label for="youTubeLink">YouTube: </label>
         <input type="text" name="youTubeLink" id="youTubeLink" value="<%=game.youTubeLink%>" /> 
         <br/>
