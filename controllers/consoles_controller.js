@@ -48,7 +48,7 @@ router.delete("/:id", async (req, res) => {
 //UPDATE
 router.put("/:id", async (req, res) => {
 	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
-	//	console.log("req.body", req.body);
+		//console.log("req.body", req.body);
 		res.redirect(`/consoles/${req.params.id}`);
 	});
 });
@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
 router.get("/:id/edit", async (req, res) => {
 	let games = await Game.find();
 	let consoles = await Console.findById(req.params.id).populate("games");
-	console.log(consoles.games[0]._id);
+	
 	res.render("consoles/edit.ejs", {
 		console: consoles,
 		games,

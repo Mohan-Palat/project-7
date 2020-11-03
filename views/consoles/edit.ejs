@@ -11,7 +11,7 @@
         
         <% games.forEach(game => { %>
           <label for="<%= game.name%>">
-          <input type="checkbox" id="<%=console.games.id %>" name="games" value="<%=console.games.id%>"
+          <input type="checkbox" id="<%=game.id %>" name="games" value="<%=game.id%>"
           <% if(game.id === console.games.id){ %>
           checked
         <%}%>/>
