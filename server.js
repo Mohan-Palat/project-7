@@ -9,6 +9,7 @@ const app = express();
 const db = mongoose.connection;
 const expressLayouts = require("express-ejs-layouts");
 const router = require("./controllers/consoles_controller.js");
+const session=require('express-session');
 isAuthenticated = false;
 goBack ="";
 
@@ -49,6 +50,14 @@ app.use(express.urlencoded({ extended: true })); // extended: false - does not a
 app.use(express.json()); // returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride("_method")); // allow POST, PUT and DELETE from a form
+app.use(
+	session({
+		secret: process.env.SECRET,
+		resave: false,
+		saveUninitialized: false
+	})
+)
+
 
 const Console = require("./models/consoles.js");
 const Game = require("./models/games.js");
@@ -60,11 +69,12 @@ app.use("/games", require("./controllers/games_controller.js"));
 // Routes
 app.post("/", (req,res) => {
 	if(req.body.password == process.env.PASSWORD){
-		isAuthenticated=true;
+		req.session.isAuthenticated=true;
+		console.log(req.session.isAuthenticated);
 		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
 	else{
-	isAuthenticated=false;
+		req.session.isAuthenticated=false;
 	return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
 res.redirect("/");
@@ -72,7 +82,9 @@ res.redirect("/");
 //___________________
 //localhost:3000
 app.get("/", (req, res) => {
-	res.render("index.ejs");
+	res.render("index.ejs", {
+		isAuthenticated: req.session.isAuthenticated,
+	});
 });
 app.get("/login", (req,res) =>{
 	goBack = req.headers['referer'];
@@ -80,7 +92,7 @@ app.get("/login", (req,res) =>{
 });
 app.get("/logout", (req, res) =>{
 	goBack = req.headers['referer'];
-	isAuthenticated=false;
+	req.session.isAuthenticated=false;
 	return res.redirect(`${goBack}`);
 })
 app.get("/search", async (req,res) =>{

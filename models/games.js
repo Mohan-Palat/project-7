@@ -8,6 +8,7 @@ const gameSchema = new mongoose.Schema(
         currentlyPlaying: {type: Boolean},
         hasBeaten: {type: Boolean},
         image:{type: String},
+        maxNumberOfPlayers:{type: String},
         console: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

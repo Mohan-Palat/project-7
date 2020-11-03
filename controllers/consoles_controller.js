@@ -7,13 +7,16 @@ router.get("/", (req, res) => {
 	Console.find({}, (error, allConsoles) => {
 		res.render("consoles/index.ejs", {
 			consoles: allConsoles,
+			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
 });
 
 //NEW ROUTE
 router.get("/new", (req, res) => {
-	res.render("consoles/new.ejs");
+	res.render("consoles/new.ejs", {
+		isAuthenticated: req.session.isAuthenticated,
+	});
 });
 
 //SHOW ROUTE
@@ -21,6 +24,7 @@ router.get("/:id", async (req, res) => {
 	Console.findById(req.params.id, (err, allConsoles) => {
 		res.render("consoles/show.ejs", {
 			console: allConsoles,
+			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
 });

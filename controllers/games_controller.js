@@ -6,13 +6,16 @@ router.get("/", async (req, res) => {
 	Game.find({}, (error, allGames) => {
 		res.render("games/index.ejs", {
 			games: allGames,
+			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
 });
 
 //NEW ROUTE
 router.get("/new", (req, res) => {
-	res.render("games/new.ejs");
+	res.render("games/new.ejs", {
+		isAuthenticated: req.session.isAuthenticated,
+	});
 });
 
 //SHOW ROUTE
@@ -21,6 +24,7 @@ router.get("/:id", async (req, res) => {
 		//res.render("show.ejs", {game})
 		res.render("games/show.ejs", {
 			game: allGames,
+			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
 });
