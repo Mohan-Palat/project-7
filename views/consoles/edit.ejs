@@ -2,19 +2,22 @@
     <%if(!isAuthenticated){%>
         <h2>You do not have the ability to edit a console. Login first</h2>
       <%} else {%>
-    <form action="/consoles/<%= console._id%>?_method=PUT" method="POST"> <!--Method is the http verb that we are sending-->
+    <form action="/consoles/<%= consoles._id%>?_method=PUT" method="POST"> <!--Method is the http verb that we are sending-->
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<%= console.name %>" size="75"/><br/>
+        <input type="text" name="name" id="name" value="<%= consoles.name %>" size="75"/><br/>
         
         <label for="image">Image</label>
-        <input type="text" name="image" id="image" value="<%=console.image%>" size="75" /><br/>
+        <input type="text" name="image" id="image" value="<%=consoles.image%>" size="75" /><br/>
         
         <% games.forEach(game => { %>
           <label for="<%= game.name%>">
-          <input type="checkbox" id="<%=game.id %>" name="games" value="<%=game.id%>"
-          <% if(game.id === console.games.id){ %>
-          checked
-        <%}%>/>
+          <input type="checkbox" id="<%=game.id %>" name="games" value="<%=game.id%>" 
+
+          <%consoles.games.forEach(cgame =>{
+            if(cgame.id===game.id){ %>
+            checked
+          <%}})%>
+          />
           <%= game.name %>
           </label><br />
         <%})%>
