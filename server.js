@@ -92,6 +92,7 @@ clearButton = () => {
 };
 
 app.get("/", (req, res) => {
+	if(isAuthenticated) {req.session.destroy();}
 	res.render("index.ejs", {
 		isAuthenticated: req.session.isAuthenticated,
 	});
@@ -102,7 +103,8 @@ app.get("/login", (req, res) => {
 });
 app.get("/logout", (req, res) => {
 	goBack = req.headers["referer"];
-	req.session.isAuthenticated = false;
+	isAuthenticated = false;
+	req.session.destroy();
 	return res.redirect(`${goBack}`);
 });
 app.get("/search", async (req, res) => {

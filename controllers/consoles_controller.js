@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Console = require("../models/consoles.js");
 const Game = require("../models/games.js");
 
-
 //INDEX ROUTE
 router.get("/", (req, res) => {
 	Console.find({}, (error, allConsoles) => {
@@ -22,17 +21,15 @@ router.get("/new", async (req, res) => {
 	});
 });
 
-
-
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
 	let consoles = await Console.findById(req.params.id).populate("games");
-	let games = await Game.find({});
-	console.log(games);
-//console.log(games);
+	let games = await Game.find({id: consoles.games.id,});
+	// res.send(games);
+	// console.log(games);
 	res.render("consoles/show.ejs", {
-		games,
-		console: consoles,		
+		games: games,
+		console: consoles,
 		isAuthenticated: req.session.isAuthenticated,
 	});
 });
@@ -53,12 +50,12 @@ router.delete("/:id", async (req, res) => {
 
 //UPDATE
 router.put("/:id", async (req, res) => {
-	 if(!req.body.games){ //If all of the games are unchecked
-		 Console.findByIdAndUpdate(req.params.id, 
-			{games: [] }, (error) =>{}); //Update the games array on the console document to have 0 items
-	 }
-	 //Regardless, update the other elements in the console document
-	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => { 
+	if (!req.body.games) {
+		//If all of the games are unchecked
+		Console.findByIdAndUpdate(req.params.id, { games: [] }, (error) => {}); //Update the games array on the console document to have 0 items
+	}
+	//Regardless, update the other elements in the console document
+	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
 		//console.log("req.body", req.body);
 		res.redirect(`/consoles/${req.params.id}`); //Go back to the previous page
 	});

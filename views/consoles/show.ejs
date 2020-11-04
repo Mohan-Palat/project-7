@@ -2,15 +2,16 @@
 
 <h2><%=console.name%></h2>
 <img src="<%=console.image%>" width="720" height="480"><br>
+
 <h3>Games associated with console</h3>
 <ul>
+  
     <% console.games.forEach(game =>{%>
-      <%%>
-      <a href="/games/<%games.findById({id: game.id})%>">
-    <li><%=game.name%></a></li>
-    
-    
- <% })%>
+      <%games.forEach(match =>{
+        if(match.id === game.id){%>
+   <li><a href="/games/<%=match.id%>"><%=game.name%></a></li>
+   <%}})%>
+ <%})%>
 </ul>
 <%if(!isAuthenticated){%>
     
