@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 			games: allGames,
 			isAuthenticated: req.session.isAuthenticated,
 		});
-	});
+	}).sort('name');
 });
 
 //NEW ROUTE
@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
 	Game.findById(req.params.id, (err, allGames) => {
 		//res.render("show.ejs", {game})
 		res.render("games/show.ejs", {
-			game: allGames,
+			game,
 			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
