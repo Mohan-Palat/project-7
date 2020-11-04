@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 
 //NEW ROUTE
 router.get("/new", async (req, res) => {
-	let games = await Game.find();
+	let games = await Game.find().sort('name');
 	res.render("consoles/new.ejs", {
 		games: games,
 		isAuthenticated: req.session.isAuthenticated,
@@ -23,8 +23,8 @@ router.get("/new", async (req, res) => {
 
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
-	let consoles = await Console.findById(req.params.id).populate("games");
-	let games = await Game.find({id: consoles.games.id,});
+	let consoles = await Console.findById(req.params.id).populate("games").sort('console.games.name');
+	let games = await Game.find({id: consoles.games.id,}).sort('name');
 	// res.send(games);
 	// console.log(games);
 	res.render("consoles/show.ejs", {
@@ -63,9 +63,9 @@ router.put("/:id", async (req, res) => {
 
 //EDIT
 router.get("/:id/edit", async (req, res) => {
-	let games = await Game.find();
+	let games = await Game.find().sort('name');
 	let consoles = await Console.findById(req.params.id).populate("games");
-	//console.log(consoles.games);
+	console.log(consoles.games);
 	res.render("consoles/edit.ejs", {
 		consoles: consoles,
 		games,

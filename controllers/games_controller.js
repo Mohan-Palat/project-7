@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
 	Game.findById(req.params.id, (err, allGames) => {
 		//res.render("show.ejs", {game})
 		res.render("games/show.ejs", {
-			game,
+			game: allGames,
 			isAuthenticated: req.session.isAuthenticated,
 		});
 	});
