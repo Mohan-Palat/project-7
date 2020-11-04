@@ -83,16 +83,12 @@ app.post("/", (req, res) => {
 //___________________
 //localhost:3000
 
-clearButton = () => {
-	const button = document.querySelector("#clear");
-	button.addEventListener("click", (event) => {
-		event.preventDefault();
-		document.querySelector("#image").value = "";
-	});
-};
+
 
 app.get("/", (req, res) => {
 	if(isAuthenticated) {req.session.destroy();}
+
+
 	res.render("index.ejs", {
 		isAuthenticated: req.session.isAuthenticated,
 	});
@@ -117,7 +113,7 @@ app.get("/search", async (req, res) => {
 	let consoleResults = await Console.find({
 		name: { $regex: req.query.name, $options: "i" },
 	});
-	console.log(gameResults);
+	//console.log(gameResults);
 	res.render("search.ejs", {
 		games: gameResults,
 		consoles: consoleResults,

@@ -15,7 +15,8 @@ const gameSchema = new mongoose.Schema(
 				ref: "Console",
 			},
         ],
-        youTubeLink: {type: String}
+        youTubeLink: {type: String},
+        replayable: {type: Boolean},
     }
 )
 

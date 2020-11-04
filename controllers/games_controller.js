@@ -4,6 +4,7 @@ const Game = require("../models/games.js");
 //INDEX ROUTE
 router.get("/", async (req, res) => {
 	Game.find({}, (error, allGames) => {
+		
 		res.render("games/index.ejs", {
 			games: allGames,
 			isAuthenticated: req.session.isAuthenticated,
@@ -106,7 +107,7 @@ router.get("/:id/edit", async (req, res) => {
 		res.render("games/edit.ejs", {
 			game,
 			isAuthenticated: req.session.isAuthenticated,
-			clearButton: clearButton,
+			
 		});
 	});
 });

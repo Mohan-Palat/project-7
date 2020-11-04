@@ -22,3 +22,8 @@ Over the years, I have collected and played video games from a variety of consol
 
 ## Wireframe / Models
 Coming soon
+
+## Acknowledgements
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+Useful for the search by name implementation
