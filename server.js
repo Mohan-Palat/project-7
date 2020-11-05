@@ -10,9 +10,9 @@ const db = mongoose.connection;
 const expressLayouts = require("express-ejs-layouts");
 const router = require("./controllers/consoles_controller.js");
 const session = require("express-session");
-isAuthenticated = false;
-goBack = "";
-
+isAuthenticated = false; //Flag passed to ejs render pages in order for certain items to be viewable
+goBack = ""; //Used to redirect back to the previous page when logged in or out
+dupe = false; //Used in determining if a game has already been added to the collection
 //___________________
 //Port
 //___________________
@@ -83,37 +83,39 @@ app.post("/", (req, res) => {
 //___________________
 //localhost:3000
 
-
+/*Notes about the below routes:
+req.headers["referrer"] - in viewing the req.headers, the "referrer" contains the URL of the page that initiated the request.  This is useful for the goBack command
+*/
 
 app.get("/", (req, res) => {
-	if(isAuthenticated) {req.session.destroy();}
-
-
+	if (isAuthenticated) {
+		req.session.destroy();
+	} //Kills any open sessions before authenticating
 	res.render("index.ejs", {
-		isAuthenticated: req.session.isAuthenticated,
+		isAuthenticated: req.session.isAuthenticated, //authenticates the admin user
 	});
 });
 app.get("/login", (req, res) => {
 	goBack = req.headers["referer"];
-	res.render("login.ejs");
+	res.render("login.ejs"); //Page to enter the password
 });
 app.get("/logout", (req, res) => {
 	goBack = req.headers["referer"];
-	isAuthenticated = false;
+	isAuthenticated = false; //Resets this flag to hide admin features
 	req.session.destroy();
 	return res.redirect(`${goBack}`);
 });
 app.get("/search", async (req, res) => {
-	let queryString = req.query.name;
-	console.log(queryString);
-	let gameResults = await Game.find({
-		name: { $regex: req.query.name, $options: "i" },
+	let gameResults = await Game.find({ //searches all games
+		name: {
+			$regex: req.query.name, //$regex converts the name field from search box on index.ejs to a string
+			$options: "i", //case-insensitive search option
+		},
 	});
 
-	let consoleResults = await Console.find({
+	let consoleResults = await Console.find({ //searches all consoles
 		name: { $regex: req.query.name, $options: "i" },
 	});
-	//console.log(gameResults);
 	res.render("search.ejs", {
 		games: gameResults,
 		consoles: consoleResults,

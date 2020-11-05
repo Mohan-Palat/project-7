@@ -31,6 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //POST ROUTE
+//Converts checked boxes to true/false for documents
 router.post("/", async (req, res) => {
 	if (req.body.isDigital == "on") {
 		req.body.isDigital = true;
@@ -50,17 +51,18 @@ router.post("/", async (req, res) => {
 	let gameCollection = await Game.find({
 		name: req.body.name,
 		isDigital: req.body.isDigital,
-	});
+	}); //Checks to see if a document with the same name and digital version exists
 	
-	if (gameCollection!="") {
-		let dupe=true;
+	if (gameCollection!="") { //If there is one
+		dupe=true; //Set the dupe flag to true (this presents a message on the new screen)
 		res.redirect('/games/new');
+		
 	}
 	else{
 		let game = await Game.create(req.body); //Creates a new entry in Games document with the game detail
 		res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
 	}
-	// res.redirect('/games/new');
+	
 });
 
 //DELETE
@@ -72,6 +74,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //UPDATE
+//Converts checked boxes to true/false for documents
 router.put("/:id", async (req, res) => {
 	let id = req.params.id;
 	if (req.body.isDigital === "on") {
