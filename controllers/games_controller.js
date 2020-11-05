@@ -9,7 +9,10 @@ router.get("/", async (req, res) => {
 			games: allGames,
 			isAuthenticated: req.session.isAuthenticated,
 		});
-	}).sort('name');
+	}).collation({locale: "en"}).sort({"name":1}); //Sorts the list of games alphabetically and case-insensitive
+	
+
+		
 });
 
 //NEW ROUTE

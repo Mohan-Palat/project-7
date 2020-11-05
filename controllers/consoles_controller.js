@@ -38,8 +38,8 @@ router.get("/:id", async (req, res) => {
 
 //POST ROUTE
 router.post("/", async (req, res) => {
-	let console = await Console.create(req.body); //When the games array within the console document is updated, the order of the array elements are based on game name.
-	res.redirect(`/consoles/${console._id}`); //Redirects to the show page of the newly created console.
+		let console = await Console.create(req.body); //When the games array within the console document is updated, the order of the array elements are based on game name.
+		res.redirect(`/consoles/${console._id}`); //Redirects to the show page of the newly created console.
 });
 
 //DELETE
@@ -58,7 +58,7 @@ router.put("/:id", async (req, res) => {
 	}
 	//Regardless, update the other elements in the console document
 	await Console.findByIdAndUpdate(req.params.id, req.body, (error) => {
-		//console.log("req.body", req.body);
+		
 		res.redirect(`/consoles/${req.params.id}`); //Go back to the previous page
 	});
 });
@@ -67,7 +67,6 @@ router.put("/:id", async (req, res) => {
 router.get("/:id/edit", async (req, res) => {
 	let games = await Game.find().sort("name");
 	let consoles = await Console.findById(req.params.id).populate("games");
-	console.log(consoles.games);
 	res.render("consoles/edit.ejs", {
 		consoles: consoles,
 		games,

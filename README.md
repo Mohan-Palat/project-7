@@ -22,6 +22,12 @@ Over the years, I have collected and played video games from a variety of consol
 
 * As the owner, I want to be able to enter a password in order to perform administrative activities like creating, editing, and deleting.
 
+* As the owner, I want to be able to create a new game and populate it with certain details so that it's in the collection.
+
+* As the owner, I want to be able to create a new console and populate it with certain details so that it's in the collection.
+
+* As the owner, I want to be prevented from adding an already existing game so that there are no duplicates.
+
 * As the owner, I want to be able to edit the details of the game so that I can provide the most up to date information.
 
 * As the owner, I want to be able to click a box in the game details to show that the game was recently played.
@@ -34,10 +40,8 @@ Over the years, I have collected and played video games from a variety of consol
 [Wireframe/model] ().
 
 ## Acknowledgements
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-
-Useful for the search by name implementation
+[Useful for the search by name implementation] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+[Case-insensitive sorting for list of games] (https://stackoverflow.com/questions/22931177/case-insensitive-sorting-in-mongodb)
 
 ## Future Enhancements
 * Model for accessories on both consoles and games

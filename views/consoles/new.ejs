@@ -1,6 +1,7 @@
 <body>
     <h1>New Console</h1>
-    <%if(!isAuthenticated){%>
+
+<%if(!isAuthenticated){%>
       <h2>You do not have the ability to create a new console. Login first</h2>
     <%} else {%>
     <form action="/consoles/" method="POST">
@@ -21,7 +22,7 @@
           </label><br />
         <%})%>
 
-        <input type="submit" value="Add new game">
+        <input type="submit" value="Add new console">
       </form>
 <%}%>
      </body>
