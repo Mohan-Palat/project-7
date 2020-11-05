@@ -49,6 +49,11 @@ router.post("/", async (req, res) => {
 	} else {
 		req.body.hasBeaten = false;
 	}
+	if(req.body.replayable == "on") {
+		req.body.replayable = true;
+	} else {
+		req.body.replayable = false;
+	}
 	let gameCollection = await Game.find({
 		name: req.body.name,
 		isDigital: req.body.isDigital,
@@ -90,6 +95,11 @@ router.put("/:id", async (req, res) => {
 		req.body.hasBeaten = true;
 	} else {
 		req.body.hasBeaten = false;
+	}
+	if(req.body.replayable == "on") {
+		req.body.replayable = true;
+	} else {
+		req.body.replayable = false;
 	}
 	await Game.findByIdAndUpdate(
 		req.params.id,

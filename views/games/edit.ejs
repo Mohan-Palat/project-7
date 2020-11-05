@@ -15,6 +15,10 @@
         <input type="checkbox" name="hasBeaten" id="hasBeaten" <% if(game.hasBeaten){ %> checked <%}%>/><br/>
         <label for="image">Image</label>
         <input type="text" name="image" id="image" value="<%=game.image%>" /> <br />
+        <label for="maxNumberOfPlayers">Max Number of Players: </label>
+        <input type="text" name="maxNumberOfPlayers" id="maxNumberOfPlayers" value="<%=game.maxNumberOfPlayers%>" /><br />
+        <label for="replayable">Replayable?</label>
+        <input type="checkbox" name="replayable" id="replayable" <% if(game.replayable){ %> checked <%}%>/><br/>
         <label for="youTubeLink">YouTube: </label>
         <input type="text" name="youTubeLink" id="youTubeLink" value="<%=game.youTubeLink%>" /> 
         <br/>
