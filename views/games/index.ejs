@@ -1,13 +1,13 @@
 <%- include ("../partials/search.ejs")%>
 <h1>The games page!</h1>
 <ul>
-<% for (let game of games) { %>
+<% games.forEach(game => { %>
 <li>
     
     <a href="/games/<%=game._id%>">
     <%=game.name%></a>
 </li>
-<%}%>
+<%})%>
 </ul>
 <% if(isAuthenticated){ %>
 <a href="/games/new">Create a New Game</a>

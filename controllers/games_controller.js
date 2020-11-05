@@ -4,15 +4,13 @@ const Game = require("../models/games.js");
 //INDEX ROUTE
 router.get("/", async (req, res) => {
 	Game.find({}, (error, allGames) => {
-		
 		res.render("games/index.ejs", {
 			games: allGames,
 			isAuthenticated: req.session.isAuthenticated,
 		});
-	}).collation({locale: "en"}).sort({"name":1}); //Sorts the list of games alphabetically and case-insensitive
-	
-
-		
+	})
+		.collation({ locale: "en" })
+		.sort({ name: 1 }); //Sorts the list of games alphabetically and case-insensitive
 });
 
 //NEW ROUTE
@@ -55,17 +53,15 @@ router.post("/", async (req, res) => {
 		name: req.body.name,
 		isDigital: req.body.isDigital,
 	}); //Checks to see if a document with the same name and digital version exists
-	
-	if (gameCollection!="") { //If there is one
-		dupe=true; //Set the dupe flag to true (this presents a message on the new screen)
-		res.redirect('/games/new');
-		
-	}
-	else{
+
+	if (gameCollection != "") {
+		//If there is one
+		dupe = true; //Set the dupe flag to true (this presents a message on the new screen)
+		res.redirect("/games/new");
+	} else {
 		let game = await Game.create(req.body); //Creates a new entry in Games document with the game detail
 		res.redirect(`/games/${game._id}`); //Redirects to the page of the newly created game
 	}
-	
 });
 
 //DELETE
@@ -85,13 +81,11 @@ router.put("/:id", async (req, res) => {
 	} else {
 		req.body.isDigital = false;
 	}
-	console.log("isDigital");
 	if (req.body.currentlyPlaying === "on") {
 		req.body.currentlyPlaying = true;
 	} else {
 		req.body.currentlyPlaying = false;
 	}
-	console.log("currentlyPlaying");
 	if (req.body.hasBeaten === "on") {
 		req.body.hasBeaten = true;
 	} else {
@@ -109,11 +103,9 @@ router.put("/:id", async (req, res) => {
 //EDIT
 router.get("/:id/edit", async (req, res) => {
 	Game.findById(req.params.id, (error, game) => {
-		console.log("Edit", game);
 		res.render("games/edit.ejs", {
 			game,
 			isAuthenticated: req.session.isAuthenticated,
-			
 		});
 	});
 });

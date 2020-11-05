@@ -1,13 +1,12 @@
 <%- include ("../partials/search.ejs")%>
 <h1>The console page!</h1>
-<%console.log(isAuthenticated)%>
 <ul>
-<% for (let console of consoles) { %>
+<% consoles.forEach(console => { %>
 <li>
     <a href="/consoles/<%=console._id%>">
     <%=console.name%></a>
 </li>
-<%}%>
+<%})%>
 </ul>
 <% if(isAuthenticated){ %>
 <a href="/consoles/new">Create a New Console</a><%}%>

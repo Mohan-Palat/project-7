@@ -1,17 +1,54 @@
-<%- include ("../partials/search.ejs")%>
-<h1>Show games page!</h1>
+<%if(!isAuthenticated){%>
+  <%- include ("../partials/search.ejs")%>
+<%} else {}%>
 
-<h2><%=game.name%></h2>
+<h1><%=game.name%>
+  <%if(game.currentlyPlaying){%>
+     - Currently Playing!
+  <%} else{}%>
+</h1>
 <img src="<%=game.image%>" width="560" height="315"><br>
 
+<h2>Facts: </h2>
+<%if(game.isDigital){%>
+This is a digital version of the game.
+  <%} else {%>
+    I own a physical copy of the game.
+  <%}%>
+<br />
+
+I got this game back in <%=game.acquired%>. <br />
+
+<%if(game.hasBeaten){%>
+I have beaten the game before.
+<%} else{%> I have yet to complete this game.
+<%}%> <br />
+
+<%if(game.maxNumberOfPlayers ==1){%>
+  I can only play this game by myself.
+<% }else { %>
+  I can play this with 
+  <%if(game.maxNumberOfPlayers-1 >=2){ %>
+    <%=game.maxNumberOfPlayers-1%> other people. <%} else{ %>
+      one other person.
+    <%}} %> <br />
+
+ <%if(game.replayable){%>
+   I would definitely play this again!
+ <% } else{ %>
+   There is no way I'm playing this for the foreseeable future.
+ <% } %>
+
+
 <%if(game.youTubeLink!=''){%>
+  Check out one of my highlights from the game!<br>
   <%-game.youTubeLink%>
 <%}%>
+
+<br> 
 <%if(!isAuthenticated){%>
-    
+   
   <%} else {%>
 <button type="button" name="button"><a href="/games/<%=game._id%>/edit">Edit</a></button>
-<form action="/games/<%=game._id%>?_method=DELETE" method="POST">
-
-<input type="submit" value="DELETE" /></form>
+<form action="/games/<%=game._id%>?_method=DELETE" method="POST"><input type="submit" value="DELETE" /></form>
 <%}%>

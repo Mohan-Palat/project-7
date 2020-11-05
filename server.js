@@ -68,7 +68,6 @@ app.use("/games", require("./controllers/games_controller.js"));
 //___________________
 // Routes
 app.post("/login", (req, res) => {
-	
 	//Used to determine if password is correct.  If so, authenticate and enable admin functions
 	if (req.body.password == process.env.PASSWORD) {
 		req.session.isAuthenticated = true;
@@ -79,7 +78,6 @@ app.post("/login", (req, res) => {
 		req.session.stillOpen = false;
 		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
-
 });
 //___________________
 //localhost:3000
@@ -88,12 +86,14 @@ app.post("/login", (req, res) => {
 req.headers["referrer"] - in viewing the req.headers, the "referrer" contains the URL of the page that initiated the request.  This is useful for the goBack command
 */
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+	let games = await Game.find({ currentlyPlaying: true }).sort('name');
 	if (isAuthenticated) {
 		req.session.destroy();
 	} //Kills any open sessions before authenticating
 	res.render("index.ejs", {
 		isAuthenticated: req.session.isAuthenticated, //authenticates the admin user
+		games,
 	});
 });
 app.get("/login", (req, res) => {
@@ -107,16 +107,19 @@ app.get("/logout", (req, res) => {
 	return res.redirect(`${goBack}`);
 });
 app.get("/search", async (req, res) => {
-	let gameResults = await Game.find({ //searches all games
+	let gameResults = await Game.find({
+		//searches all games
 		name: {
 			$regex: req.query.name, //$regex converts the name field from search box on index.ejs to a string
 			$options: "i", //case-insensitive search option
 		},
 	});
 
-	let consoleResults = await Console.find({ //searches all consoles
+	let consoleResults = await Console.find({
+		//searches all consoles
 		name: { $regex: req.query.name, $options: "i" },
 	});
+
 	res.render("search.ejs", {
 		games: gameResults,
 		consoles: consoleResults,

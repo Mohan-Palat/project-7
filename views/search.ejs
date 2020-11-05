@@ -1,19 +1,23 @@
 <%- include ("./partials/search.ejs")%>
-<h1>Consoles</h1>
+<% if(consoles.length==0){} else{%>
+    <h1>Consoles</h1>
 <ul>
-    <% for (let console of consoles) { %>
+    <% consoles.forEach(console => { %>
     <li>
         <a href="/consoles/<%=console._id%>">
         <%=console.name%></a>
     </li>
 </ul>
-<%}%>
+<%})}%>
+<% if(games.length==0){%>
+<%} else{%>
 <h1>Games</h1>
 <ul>
-    <% for (let game of games) { %>
+    <% games.forEach(game => { %>
     <li>
         <a href="/games/<%=game._id%>">
         <%=game.name%></a>
     </li>
-    <%}%>
+    <%})%>
 </ul>
+<%}%>

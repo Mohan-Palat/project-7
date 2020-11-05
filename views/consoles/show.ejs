@@ -1,4 +1,6 @@
-<%- include ("../partials/search.ejs")%>
+<%if(!isAuthenticated){%>
+  <%- include ("../partials/search.ejs")%>
+<%} else {}%>
 <h1>Show consoles page!</h1>
 
 <h2><%=console.name%></h2>

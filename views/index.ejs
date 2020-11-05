@@ -1,3 +1,13 @@
 <%- include ("./partials/search.ejs")%>
 
-<h1>The main index page!</h1> 
+<h1>Welcome to Gamer Central!</h1> 
+Over the years, I have collected and played video games from a variety of consoles, whether they are the newest titles or for free. As a result, I have a fairly large collection which has become a bit of a challenge to maintain. The goal of this app is to categorize those games and consoles including details about the games, my experience playing them, and other features to enhance the gameplaying experience.
+
+<ul>
+  
+    <%games.forEach(game =>{%>
+        <li><%=game.name%></li>
+    <%})%>
+</ul>
+
+    
