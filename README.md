@@ -37,11 +37,12 @@ Over the years, I have collected and played video games from a variety of consol
 * As the owner, I want to keep a list of games I currently play so that I know which ones I play often.
 
 ## Wireframe / Models
-[Wireframe/model] ().
+[Wireframe/model](project2-wireframe-model.pdf).
 
 ## Acknowledgements
-[Useful for the search by name implementation] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
-[Case-insensitive sorting for list of games] (https://stackoverflow.com/questions/22931177/case-insensitive-sorting-in-mongodb)
+[Useful for the search by name implementation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+
+[Case-insensitive sorting for list of games](https://stackoverflow.com/questions/22931177/case-insensitive-sorting-in-mongodb)
 
 ## Future Enhancements
 * Model for accessories on both consoles and games

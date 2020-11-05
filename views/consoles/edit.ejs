@@ -4,7 +4,7 @@
       <%} else {%>
     <form action="/consoles/<%= consoles._id%>?_method=PUT" method="POST"> <!--Method is the http verb that we are sending-->
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<%= consoles.name %>" size="75"/><br/>
+        <input type="text" name="name" id="name" value="<%= consoles.name %>" width="75" height="100"/><br/>
         
         <label for="image">Image</label>
         <input type="text" name="image" id="image" value="<%=consoles.image%>" size="75" /><br/>

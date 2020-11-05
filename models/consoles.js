@@ -11,6 +11,7 @@ const consoleSchema = new mongoose.Schema(
 				ref: "Game",
 			},
 		],
+		comments:{type: String,},
 	},
 	{ timestamps: true }
 );

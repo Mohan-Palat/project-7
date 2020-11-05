@@ -6,19 +6,14 @@
     <title>Gamer Central</title>
 </head>
 <body>
-   
-    <%- body%>
-    
-    <br><a href="/games">Games</a>
-    <br><a href="/consoles/">Consoles</a>
-    <br><a href="/">Search</a>
-    <br>
-    <%if(!isAuthenticated){%>
-        <a href="/login">Login to make changes</a>
-        <%} else {%>
-            <a href="/logout">Logout to be done making changes</a>
-        <%} %>
-    
-    
+         
+            <%- body%>
+       <form action="/search" method="GET">
+            <input type="text" name="name" id="name" />   <input type="submit" value="Search by Name">  <a href="/games">Games</a>  <a href="/consoles/">Consoles</a>
+        <%if(!isAuthenticated){%>
+            <a href="/login">Update</a>
+            <%} else {%>
+                <a href="/logout">Done With Updates</a>
+            <%} %>
 </body>
 </html>
