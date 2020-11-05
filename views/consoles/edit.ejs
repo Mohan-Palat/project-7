@@ -8,6 +8,9 @@
         
         <label for="image">Image</label>
         <input type="text" name="image" id="image" value="<%=consoles.image%>" size="100" /><br/>
+
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments" rows="4" cols="50"><%=consoles.comments%></textarea> <br />
         
         <% games.forEach(game => { %>
           <label for="<%= game.name%>">
@@ -21,7 +24,7 @@
           <%= game.name %>
           </label><br />
         <%})%>
-        
+
         <input type="submit" value="Update Console Info">
       </form>
 <%}%>

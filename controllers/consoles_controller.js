@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 
 //NEW ROUTE
 router.get("/new", async (req, res) => {
-	let games = await Game.find().sort("name"); //Builds a list of games sorted in alphabetical order by name.
+	let games = await Game.find().collation({ locale: "en" }).sort({ name: 1 });
 	res.render("consoles/new.ejs", {
 		games: games,
 		isAuthenticated: req.session.isAuthenticated,
@@ -27,7 +27,7 @@ router.get("/new", async (req, res) => {
 //SHOW ROUTE
 router.get("/:id", async (req, res) => {
 	let consoles = await Console.findById(req.params.id).populate("games"); //Looks at the games array of the console document and then populates it with the names of the game
-	let games = await Game.find({ id: consoles.games.id }); //Gets the entire collection of games so that in the show.ejs, each game listed will link to its respective game show page.
+	let games = await Game.find({ id: consoles.games.id }).collation({ locale: "en" }).sort({ name: 1 });
 
 	res.render("consoles/show.ejs", {
 		games: games,
@@ -65,7 +65,7 @@ router.put("/:id", async (req, res) => {
 
 //EDIT
 router.get("/:id/edit", async (req, res) => {
-	let games = await Game.find().sort("name");
+	let games = await Game.find().collation({ locale: "en" }).sort({ name: 1 });
 	let consoles = await Console.findById(req.params.id).populate("games");
 	res.render("consoles/edit.ejs", {
 		consoles: consoles,

@@ -1,11 +1,10 @@
 <%if(!isAuthenticated){%>
   <%- include ("../partials/search.ejs")%>
 <%} else {}%>
-<h1>Show consoles page!</h1>
-
-<h2><%=console.name%></h2>
+<h1><%=console.name%></h1>
 <img src="<%=console.image%>" max-width="720" max-height="480"><br>
 
+<p><%=console.comments%></p>
 <h3>Games associated with console</h3>
 <ul>
   

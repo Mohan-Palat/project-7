@@ -8,8 +8,7 @@ router.get("/", async (req, res) => {
 			games: allGames,
 			isAuthenticated: req.session.isAuthenticated,
 		});
-	})
-		.collation({ locale: "en" })
+	}).collation({ locale: "en" })
 		.sort({ name: 1 }); //Sorts the list of games alphabetically and case-insensitive
 });
 
