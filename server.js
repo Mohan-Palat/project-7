@@ -67,7 +67,8 @@ app.use("/games", require("./controllers/games_controller.js"));
 
 //___________________
 // Routes
-app.post("/", (req, res) => {
+app.post("/login", (req, res) => {
+	
 	//Used to determine if password is correct.  If so, authenticate and enable admin functions
 	if (req.body.password == process.env.PASSWORD) {
 		req.session.isAuthenticated = true;
@@ -78,7 +79,7 @@ app.post("/", (req, res) => {
 		req.session.stillOpen = false;
 		return res.redirect(`${goBack}`); //goes back to the page where the Login button was clicked on.
 	}
-	res.redirect("/");
+
 });
 //___________________
 //localhost:3000

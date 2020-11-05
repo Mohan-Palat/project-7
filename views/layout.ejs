@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamer Central</title>
+   <%- include ("./partials/head.ejs")%>
 </head>
 <body>
-         
+    
             <%- body%>
-       <form action="/search" method="GET">
-            <input type="text" name="name" id="name" />   <input type="submit" value="Search by Name">  <a href="/games">Games</a>  <a href="/consoles/">Consoles</a>
-        <%if(!isAuthenticated){%>
-            <a href="/login">Update</a>
-            <%} else {%>
-                <a href="/logout">Done With Updates</a>
-            <%} %>
+       
 </body>
 </html>
