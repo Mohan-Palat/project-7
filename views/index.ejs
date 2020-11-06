@@ -1,13 +1,11 @@
 <%- include ("./partials/search.ejs")%>
 
 <h1>Welcome to Gamer Central!</h1> 
-Over the years, I have collected and played video games from a variety of consoles, whether they are the newest titles or for free. As a result, I have a fairly large collection which has become a bit of a challenge to maintain. The goal of this app is to categorize those games and consoles including details about the games, my experience playing them, and other features to enhance the gameplaying experience.
+<p>Over the years, I have collected and played video games from a variety of consoles, whether they are the newest titles or for free. As a result, I have a fairly large collection which has become a bit of a challenge to maintain. The goal of this app is to categorize those games and consoles including details about the games, my experience playing them, and other features to enhance the gameplaying experience.</p>
 
-<ul>
-  
+<div class="pure-g">
     <%games.forEach(game =>{%>
-        <li><%=game.name%></li>
+        <div class="pure-u-1 pure-u-md-1-4">
+            <a href="/games/<%=game.id%>"><img class="pure-img" src="<%=game.image%>"><%=game.name%></a></div>
     <%})%>
-</ul>
-
-    
+    </div>

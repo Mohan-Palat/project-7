@@ -2,28 +2,42 @@
   <%- include ("../partials/search.ejs")%>
 <%} else {}%>
 
+
 <h1><%=game.name%>
   <%if(game.currentlyPlaying){%>
      - Currently Playing!
   <%} else{}%>
-</h1>
+</h1><%if(!isAuthenticated){%>
+   
+  <%} else {%>
+<button type="button" name="button"><a href="/games/<%=game._id%>/edit">Edit</a></button>
+<form action="/games/<%=game._id%>?_method=DELETE" method="POST"><input type="submit" value="DELETE" /></form>
+<%}%>
 <img src="<%=game.image%>" width="560" height="315"><br>
 
+
 <h2>Facts: </h2>
+
+<table class="pure-table">
+  <thead></thead>
+  <tbody>
+    <tr>
 <%if(game.isDigital){%>
 This is a digital version of the game.
   <%} else {%>
     I own a physical copy of the game.
   <%}%>
-<br />
+  </tr>
 
-I got this game back in <%=game.acquired%>. <br />
+<tr>I got this game back in <%=game.acquired%>. </tr>
 
+<tr>
 <%if(game.hasBeaten){%>
 I have beaten the game before.
 <%} else{%> I have yet to complete this game.
-<%}%> <br />
+<%}%></tr>
 
+<tr>
 <%if(game.maxNumberOfPlayers ==1){%>
   I can only play this game by myself.
 <% }else { %>
@@ -31,24 +45,21 @@ I have beaten the game before.
   <%if(game.maxNumberOfPlayers-1 >=2){ %>
     <%=game.maxNumberOfPlayers-1%> other people. <%} else{ %>
       one other person.
-    <%}} %> <br />
-
+    <%}} %>
+    </tr>
+    <tr>
  <%if(game.replayable){%>
    I would definitely play this again!
  <% } else{ %>
    There is no way I'm playing this for the foreseeable future.
  <% } %>
+ </tr>
 
 
-<%if(game.youTubeLink!=''){%>
+<tr><%if(game.youTubeLink!=''){%>
   Check out one of my highlights from the game!<br>
   <%-game.youTubeLink%>
 <%}%>
-
-<br> 
-<%if(!isAuthenticated){%>
-   
-  <%} else {%>
-<button type="button" name="button"><a href="/games/<%=game._id%>/edit">Edit</a></button>
-<form action="/games/<%=game._id%>?_method=DELETE" method="POST"><input type="submit" value="DELETE" /></form>
-<%}%>
+</tr>
+</tbody>
+</table>

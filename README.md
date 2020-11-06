@@ -43,6 +43,7 @@ Over the years, I have collected and played video games from a variety of consol
 [Useful for the search by name implementation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
 [Case-insensitive sorting for list of games](https://stackoverflow.com/questions/22931177/case-insensitive-sorting-in-mongodb)
 [Gradient color schema](https://uigradients.com/)
+[PureCSS](https://purecss.io)
 
 ## Future Enhancements
 * Model for accessories on both consoles and games

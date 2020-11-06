@@ -1,23 +1,27 @@
 <%- include ("./partials/search.ejs")%>
 <% if(consoles.length==0){} else{%>
     <h1>Consoles</h1>
-<ul>
-    <% consoles.forEach(console => { %>
-    <li>
-        <a href="/consoles/<%=console._id%>">
-        <%=console.name%></a>
-    </li>
-</ul>
-<%})}%>
+    <div class="pure-g">
+        <% consoles.forEach(console => { %>
+        <div class="pure-u-1 pure-u-sm-1-4">
+           <a href="/consoles/<%=console._id%>"><img class="pure-img" src="<%=console.image%>">
+            <%=console.name%></a></div>
+        <%})%>
+    </div>
+<%}%>
 <% if(games.length==0){%>
 <%} else{%>
 <h1>Games</h1>
-<ul>
+<div class="pure-g">
     <% games.forEach(game => { %>
-    <li>
-        <a href="/games/<%=game._id%>">
-        <%=game.name%></a>
-    </li>
+        <div class="pure-u-1 pure-u-sm-1-4">
+        
+        <a href="/games/<%=game._id%>"><img class="pure-img" src="<%=game.image%>">
+        <%=game.name%></a></div>
+    
     <%})%>
-</ul>
+        </div>
 <%}%>
+
+
+
